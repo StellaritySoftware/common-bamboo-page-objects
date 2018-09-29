@@ -17,10 +17,10 @@ class CreateNewPlanConfigureTasksPage extends Page
         editTaskLink {$(By.cssSelector("a[href='/bamboo/build/admin/edit/editTask.action?planKey=${Config.projKey}-${Config.planKey}-JOB1&taskId=1']"))}
     }
 
-    def TaskTypesPage addTask(){
-       buttonAddTask.click()
-       browser.at TaskTypesPage
-    }
+//    def TaskTypesPage addTask(){
+//       buttonAddTask.click()
+//       browser.at TaskTypesPage
+//    }
 
     def clickCreateButton(){
         if(!buttonCreate.empty){
