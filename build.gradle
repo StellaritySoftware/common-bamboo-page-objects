@@ -9,29 +9,18 @@ dependencies {
     def gebVersion = "2.1"
     def seleniumVersion = "3.6.0"
 
-    testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
+    compile "org.codehaus.groovy:groovy-all:$groovyVersion"
 
     // If using Spock, need to depend on geb-spock
-    testCompile "org.gebish:geb-spock:$gebVersion"
-    testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
+    compile "org.gebish:geb-spock:$gebVersion"
+    compile("org.spockframework:spock-core:1.1-groovy-2.4") {
         exclude group: "org.codehaus.groovy"
     }
 
     // Need a driver implementation
-    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
-    testRuntime "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+    compile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    runtime "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-text
-    testCompile "org.apache.commons:commons-text:1.1"
-}
-
-
-    // systemProperties "geb.build.reportsDir": "$reportsDir/geb"
-
-
-
-tasks.withType(Test) {
-    testLogging {
-        exceptionFormat = 'full'
-    }
+    compile "org.apache.commons:commons-text:1.1"
 }
