@@ -7,7 +7,7 @@ import org.openqa.selenium.By
 class CreateNewPlanConfigureTasksPage extends Page
 {
     static url = "/bamboo/build/admin/create/createPlanTasks.action"
-    static at = { $("#content header h1").text().matches("Create(.*)plan") && $("#onePageCreate > h2").text() ==~ /Configure (tasks|Job)/ || $("#content header h1 a").text() == "Configuration - ${Config.planName}" }
+    static at = { $("#content header h1").text().matches("Create(.*)plan") && $("#onePageCreate > h2").text() ==~ /Configure (tasks|Job)/ || $("#content header h1 a").text() == "Configuration - ${CommonConfig.planName}" }
 
     static content =
     {
