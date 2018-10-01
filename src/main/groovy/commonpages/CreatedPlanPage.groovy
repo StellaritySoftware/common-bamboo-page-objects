@@ -8,14 +8,18 @@ import org.openqa.selenium.By
 /**
  * Created by Kateryna on 09.12.2017.
  */
-class CreatedPlanPage extends Page {
-
-    static at = {$(By.id("breadcrumb:" + CommonConfig.projKey.toString() + "-" + CommonConfig.planKey.toString())).text() == CommonConfig.planName}
-    static content = {
-        runDropdown{$("button.aui-button.aui-dropdown2-trigger", text : "Run")}
-        manualBuild{$(By.id("manualBuild_" + CommonConfig.projKey + "-" + CommonConfig.planKey))}
+class CreatedPlanPage extends Page
+{
+    static at = { $(By.id("breadcrumb:" + CommonConfig.projKey.toString() + "-" + CommonConfig.planKey.toString())).text() == CommonConfig.planName }
+    
+    static content = 
+    {
+        runDropdown { $("button.aui-button.aui-dropdown2-trigger", text : "Run") }
+        manualBuild { $(By.id("manualBuild_" + CommonConfig.projKey + "-" + CommonConfig.planKey)) }
     }
-    def runManualBuild(){
+    
+    def PlanBuildPage runManualBuild()
+    {
         runDropdown.click()
         manualBuild.click()
         browser.at PlanBuildPage

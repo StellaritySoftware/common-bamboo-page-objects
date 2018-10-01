@@ -1,12 +1,10 @@
 package commonpages
 
-import configuration.CommonConfig
 import geb.Page
-
 
 class LoginPage extends Page
 {
-    static url = CommonConfig.context + "/userlogin!doDefault.action"
+    static url = "/bamboo/userlogin!doDefault.action"
     static at = { $("#content h1").text() == "Log in" }
 
     static content =

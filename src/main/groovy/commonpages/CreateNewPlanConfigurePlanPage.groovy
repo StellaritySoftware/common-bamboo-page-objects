@@ -8,7 +8,7 @@ import org.openqa.selenium.Keys
 class CreateNewPlanConfigurePlanPage extends Page
 {
     static url = "/bamboo/build/admin/create/newPlan.action"
-    static at = { $("#content header h1").text() == "Create plan" && $("#content h2").text() == "Configure plan"}
+    static at = { $("#content header h1").text().matches("Create(.*)plan") && $("#content h2").text() == "Configure plan" }
 
     static content =
     {
@@ -18,7 +18,7 @@ class CreateNewPlanConfigurePlanPage extends Page
         chainName { $("#chainName") }
         chainKey { $("#createPlan_chainKey") }
         newRepositoryOption(required: false) { $("#repositoryTypeCreateOption") }
-        noneRepositoryOption(required: false){$("#repositoryTypeNoneOption")}
+        noneRepositoryOption(required: false) { $("#repositoryTypeNoneOption") }
         selectRepositoryLink { $("#repository-other") }
         tfsRepositoryLink { $("#repository-other-dropdown a", text: "TFS") }
         noneRepositoryLink { $("#repository-other-dropdown a", text: "None") }
@@ -31,11 +31,11 @@ class CreateNewPlanConfigurePlanPage extends Page
         tfsTestConnection { $("#test-connection-com-stellarity-bamboo-tfs-repository-plugin-tfs-v2") }
         allowToReuseForAll { $("#createPlan_linkedRepositoryAccessOptionALL_USERS") }
         allowToReuseForCreator { $("#createPlan_linkedRepositoryAccessOptionCREATOR") }
-        configurePlanButton(to: CreateNewPlanConfigureTasksPage) { $("#createPlan_save")}
-
+        configurePlanButton(to: CreateNewPlanConfigureTasksPage) { $("#createPlan_save") }
     }
 
-    def setRandomProjectPlanNames(){
+    def setRandomProjectPlanNames()
+    {
         char start = 'A'
         char end = 'Z'
         def generator = new RandomStringGenerator.Builder().withinRange(start as int, end as int).build()
@@ -59,28 +59,30 @@ class CreateNewPlanConfigurePlanPage extends Page
         println("plan key - " + CommonConfig.planKey)
     }
 
-    def setNoneRepository(){
-
+    def setNoneRepository()
+    {
         // for Bamboo 6.4 version
-        if (noneRepositoryOption.isDisplayed()){
+        if (noneRepositoryOption.isDisplayed())
+        {
             js."document.querySelector('#repositoryTypeNoneOption').click()"
             return
         }
 
-        if (newRepositoryOption.isDisplayed()){
+        if (newRepositoryOption.isDisplayed())
+        {
             newRepositoryOption.click()
         }
+        
+        js."document.querySelector('#repository-other').scrollIntoView()"
         selectRepositoryLink.click()
-        interact{
-            moveToElement(noneRepositoryLink)
-        }
+        
+        interact { moveToElement(noneRepositoryLink) }
         noneRepositoryLink.click()
     }
 
-    def clickConfigurePlanButton(){
-        interact {
-            moveToElement(configurePlanButton)
-        }
+    def CreateNewPlanConfigureTasksPage clickConfigurePlanButton()
+    {
+        interact { moveToElement(configurePlanButton) }
 
         configurePlanButton << Keys.ENTER
         browser.at CreateNewPlanConfigureTasksPage

@@ -9,20 +9,20 @@ class DashboardPage extends Page
 
     static content =
     {
-        buttonCreate { $(" #createPlanLink") }
+        buttonCreate { $("#createPlanLink") }
         createPlan(to: CreateNewPlanConfigurePlanPage) { $("#createNewPlan") }
-        administrationButton{$("#system_admin_menu .aui-dropdown2-trigger")}
-        userManagementOption {$("[href='/bamboo/admin/user/viewUsers.action']")}
+        administrationButton { $("#system_admin_menu .aui-dropdown2-trigger") }
+        userManagementOption { $("[href='/bamboo/admin/user/viewUsers.action']") }
     }
 
-    def openUserManagementPage()
+    def UserManagementPage openUserManagementPage()
     {
         waitFor {administrationButton.click()}
         waitFor {userManagementOption.click()}
         browser.at UserManagementPage
     }
 
-    def createNewPlan()
+    def CreateNewPlanConfigurePlanPage createNewPlan()
     {
         buttonCreate.click()
         createPlan.click()
