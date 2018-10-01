@@ -1,5 +1,6 @@
 package commonpages
 
+import configuration.CommonConfig
 import geb.Page
 import org.openqa.selenium.By
 
