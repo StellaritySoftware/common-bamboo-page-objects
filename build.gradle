@@ -5,9 +5,9 @@ repositories {
 }
 
 dependencies {
-    def groovyVersion = "2.4.15"
-    def gebVersion = "2.1"
-    def seleniumVersion = "3.6.0"
+    def groovyVersion = "2.5.2"
+    def gebVersion = "2.2"
+    def seleniumVersion = "3.14.0"
 
     compile "org.codehaus.groovy:groovy-all:$groovyVersion"
 
