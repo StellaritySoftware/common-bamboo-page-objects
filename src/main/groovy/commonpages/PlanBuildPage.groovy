@@ -3,6 +3,7 @@ package commonpages
 import configuration.CommonConfig
 import geb.Page
 import org.openqa.selenium.By
+import org.openqa.selenium.WebElement
 
 
 /**
@@ -60,5 +61,10 @@ class PlanBuildPage extends Page
     def checkTextAddedToTests(String fileName, Integer expectedTestsCount) 
     {
         return driver.findElements(By.xpath("//table[@id='new-failed-tests']//td/span[contains(text(), '{${fileName}}')]")).size() == expectedTestsCount
+    }
+
+    def checkNoTestsWithTexts(String fileName, Integer expectedTestsCount) {
+        List<WebElement> list = driver.findElements(By.xpath("//table[@id='new-failed-tests']//td/span[contains(text(), '{${fileName}}')]"))
+        return list.size() == expectedTestsCount
     }
  }
