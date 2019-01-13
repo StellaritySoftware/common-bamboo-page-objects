@@ -23,6 +23,7 @@ class PlanBuildPage extends Page
         failedLabel { $(By.cssSelector("div.test-summary li.new-failures a")) }
         compilationWarining { $(By.cssSelector("div.result-summary-tab div.aui-message.warning p strong")) }
         testsTabLink { $(By.id("tests:${CommonConfig.projKey}-${CommonConfig.planKey}-1")) }
+        logsTabLink { $(By.id("logs:${CommonConfig.projKey}-${CommonConfig.planKey}-1")) }
     }
 
     def waitForSuccessfulHeader()
@@ -66,5 +67,12 @@ class PlanBuildPage extends Page
     def checkNoTestsWithTexts(String fileName, Integer expectedTestsCount) {
         List<WebElement> list = driver.findElements(By.xpath("//table[@id='new-failed-tests']//td/span[contains(text(), '{${fileName}}')]"))
         return list.size() == expectedTestsCount
+    }
+
+    def openLogsSubPage(){
+        logsTabLink.click()
+        LogsSubPage page = browser.at LogsSubPage
+        page.waitForOutputIsDisplayed()
+        return page
     }
  }
