@@ -20,7 +20,7 @@ class PlanBuildPage extends Page
         buttonActions { $("button.aui-button.aui-dropdown2-trigger span.aui-icon.aui-icon-small.aui-iconfont-configure") }
         configurePlanLink { $(By.id("editBuild:${CommonConfig.projKey}-${CommonConfig.planKey}")) }
         defaultJobLink { $(By.id("viewJob_${CommonConfig.projKey}-${CommonConfig.planKey}-JOB1")) }
-        failedLabel { $(By.cssSelector("div.test-summary li.new-failures a")) }
+        failedLabel { $(By.cssSelector("li#testsSummaryFailed strong.failedLabel")) }
         compilationWarining { $(By.cssSelector("div.result-summary-tab div.aui-message.warning p strong")) }
         testsTabLink { $(By.id("tests:${CommonConfig.projKey}-${CommonConfig.planKey}-1")) }
         logsTabLink { $(By.id("logs:${CommonConfig.projKey}-${CommonConfig.planKey}-1")) }
@@ -50,6 +50,7 @@ class PlanBuildPage extends Page
 
     def checkNumberOfFailedTests(CharSequence number)
     {
+        waitFor{ failedLabel.isDisplayed() }
         failedLabel.text().contains(number)
     }
 
