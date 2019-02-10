@@ -20,8 +20,10 @@ class PlanBuildPage extends Page
         buttonActions { $("button.aui-button.aui-dropdown2-trigger span.aui-icon.aui-icon-small.aui-iconfont-configure") }
         configurePlanLink { $(By.id("editBuild:${CommonConfig.projKey}-${CommonConfig.planKey}")) }
         defaultJobLink { $(By.id("viewJob_${CommonConfig.projKey}-${CommonConfig.planKey}-JOB1")) }
-        failedLabel { $(By.cssSelector("li#testsSummaryFailed strong.failedLabel")) }
-        compilationWarining { $(By.cssSelector("div.result-summary-tab div.aui-message.warning p strong")) }
+        failedLabel_upToVersion_6_7 (required: false){ $(By.cssSelector("li#testsSummaryFailed strong.failedLabel")) }
+        failedLabel_version_6_8 (required: false){ $(By.cssSelector("li.new-failures a")) }
+        compilationWarining_upToVersion_6_7 (required: false) { $(By.cssSelector("div.result-summary-tab div.aui-message.warning p strong")) }
+        compilationWarining_version_6_8 (required: false) { $(By.cssSelector("div.result-summary-tab div.aui-message.warning")) }
         testsTabLink { $(By.id("tests:${CommonConfig.projKey}-${CommonConfig.planKey}-1")) }
         logsTabLink { $(By.id("logs:${CommonConfig.projKey}-${CommonConfig.planKey}-1")) }
     }
@@ -50,14 +52,24 @@ class PlanBuildPage extends Page
 
     def checkNumberOfFailedTests(CharSequence number)
     {
-        waitFor{ failedLabel.isDisplayed() }
-        failedLabel.text().contains(number)
+        if(!failedLabel_upToVersion_6_7.empty) {
+            return failedLabel_upToVersion_6_7.text().contains(number)
+        }
+
+        if(!failedLabel_version_6_8.empty) {
+            return failedLabel_version_6_8.text().contains(number)
+        }
     }
 
     def waitForCompilationWarning()
     {
-        waitFor { compilationWarining.isDisplayed() }
-        compilationWarining.text() == "No failed tests found, a possible compilation error occurred."
+        if(!compilationWarining_upToVersion_6_7.empty) {
+            return compilationWarining_upToVersion_6_7.text() == "No failed tests found, a possible compilation error occurred."
+        }
+
+        if(!compilationWarining_version_6_8.empty) {
+            return compilationWarining_version_6_8.text() == "No failed tests found, a possible compilation error occurred."
+        }
     }
 
     def checkTextAddedToTests(String fileName, Integer expectedTestsCount) 
