@@ -50,13 +50,15 @@ class PlanBuildPage extends Page
         defaultJobLink.click()
     }
 
-    def checkNumberOfFailedTests(CharSequence number)
-    {
-        if(!failedLabel_upToVersion_6_7.empty) {
+    def checkNumberOfFailedTests(CharSequence number) {
+
+        waitFor{failedLabel_upToVersion_6_7.isDisplayed() || failedLabel_version_6_8.isDisplayed()}
+
+        if(!failedLabel_upToVersion_6_7.empty){
             return failedLabel_upToVersion_6_7.text().contains(number)
         }
 
-        if(!failedLabel_version_6_8.empty) {
+        if (!failedLabel_version_6_8.empty) {
             return failedLabel_version_6_8.text().contains(number)
         }
     }
