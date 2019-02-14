@@ -52,26 +52,18 @@ class PlanBuildPage extends Page
 
     def checkNumberOfFailedTests(CharSequence number) {
 
-        waitFor{failedLabel_upToVersion_6_7.isDisplayed() || failedLabel_version_6_8.isDisplayed()}
+        waitFor { failedLabel_upToVersion_6_7.isDisplayed() || failedLabel_version_6_8.isDisplayed() }
 
-        if(!failedLabel_upToVersion_6_7.empty){
-            return failedLabel_upToVersion_6_7.text().contains(number)
-        }
-
-        if (!failedLabel_version_6_8.empty) {
-            return failedLabel_version_6_8.text().contains(number)
-        }
+        def failedLabel = failedLabel_version_6_8 ? failedLabel_version_6_8 : failedLabel_upToVersion_6_7
+        failedLabel.text().contains(number)
     }
 
     def waitForCompilationWarning()
     {
-        if(!compilationWarining_upToVersion_6_7.empty) {
-            return compilationWarining_upToVersion_6_7.text() == "No failed tests found, a possible compilation error occurred."
-        }
-
-        if(!compilationWarining_version_6_8.empty) {
-            return compilationWarining_version_6_8.text() == "No failed tests found, a possible compilation error occurred."
-        }
+        waitFor { compilationWarining_upToVersion_6_7.isDisplayed() || compilationWarining_version_6_8.isDisplayed() }
+        
+        def compilationWarining = compilationWarining_version_6_8 ? compilationWarining_version_6_8 : compilationWarining_upToVersion_6_7
+        compilationWarining.text() == "No failed tests found, a possible compilation error occurred."
     }
 
     def checkTextAddedToTests(String fileName, Integer expectedTestsCount) 
