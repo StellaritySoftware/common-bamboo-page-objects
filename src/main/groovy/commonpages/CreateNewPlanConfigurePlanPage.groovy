@@ -47,9 +47,11 @@ class CreateNewPlanConfigurePlanPage extends Page
 
         projectName = generator.generate(8)
         chainName = generator.generate(8)
+        projectKey = projectName.value()
+        chainKey = chainName.value()
 
-        CommonConfig.projName = projectName.value()
-        CommonConfig.planName = chainName.value()
+        CommonConfig.projName = projectKey.value()
+        CommonConfig.planName = chainKey.value()
         CommonConfig.projKey = projectKey.value()
         CommonConfig.planKey = chainKey.value()
 
