@@ -2,6 +2,7 @@ package commonpages
 
 import configuration.CommonConfig
 import geb.Page
+import helpers.VersionComparator
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 
@@ -20,10 +21,16 @@ class PlanBuildPage extends Page
         buttonActions { $("button.aui-button.aui-dropdown2-trigger span.aui-icon.aui-icon-small.aui-iconfont-configure") }
         configurePlanLink { $(By.id("editBuild:${CommonConfig.projKey}-${CommonConfig.planKey}")) }
         defaultJobLink { $(By.id("viewJob_${CommonConfig.projKey}-${CommonConfig.planKey}-JOB1")) }
-        failedLabel_upToVersion_6_7 (required: false){ $(By.cssSelector("li#testsSummaryFailed strong.failedLabel")) }
-        failedLabel_version_6_8 (required: false){ $(By.cssSelector("li.new-failures a")) }
-        compilationWarining_upToVersion_6_7 (required: false) { $(By.cssSelector("div.result-summary-tab div.aui-message.warning p strong")) }
-        compilationWarining_version_6_8 (required: false) { $(By.cssSelector("div.result-summary-tab div.aui-message.warning")) }
+        failedLabel {$(By.cssSelector("li#testsSummaryFailed strong.failedLabel"))}
+
+        compilationWarning {
+            if (VersionComparator.compare(CommonConfig.bambooVersion, "6.8.0") >= 0) {
+                return $(By.cssSelector("div.result-summary-tab div.aui-message.warning"))
+            } else {
+                return $(By.cssSelector("div.result-summary-tab div.aui-message.warning p strong"))
+            }
+        }
+
         testsTabLink { $(By.id("tests:${CommonConfig.projKey}-${CommonConfig.planKey}-1")) }
         logsTabLink { $(By.id("logs:${CommonConfig.projKey}-${CommonConfig.planKey}-1")) }
     }
@@ -51,19 +58,14 @@ class PlanBuildPage extends Page
     }
 
     def checkNumberOfFailedTests(CharSequence number) {
-
-        waitFor { failedLabel_upToVersion_6_7.isDisplayed() || failedLabel_version_6_8.isDisplayed() }
-
-        def failedLabel = failedLabel_version_6_8 ? failedLabel_version_6_8 : failedLabel_upToVersion_6_7
+        waitFor {failedLabel.isDisplayed()}
         failedLabel.text().contains(number)
     }
 
     def waitForCompilationWarning()
     {
-        waitFor { compilationWarining_upToVersion_6_7.isDisplayed() || compilationWarining_version_6_8.isDisplayed() }
-        
-        def compilationWarining = compilationWarining_version_6_8 ? compilationWarining_version_6_8 : compilationWarining_upToVersion_6_7
-        compilationWarining.text() == "No failed tests found, a possible compilation error occurred."
+        waitFor { compilationWarning.isDisplayed() }
+        compilationWarning.text() == "No failed tests found, a possible compilation error occurred."
     }
 
     def checkTextAddedToTests(String fileName, Integer expectedTestsCount) 

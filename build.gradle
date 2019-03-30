@@ -23,4 +23,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-text
     compile "org.apache.commons:commons-text:1.1"
+
+    compile('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1') {
+        exclude group: "org.codehaus.groovy"
+    }
 }
