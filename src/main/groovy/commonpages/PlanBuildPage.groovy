@@ -23,10 +23,14 @@ class PlanBuildPage extends Page
         defaultJobLink { $(By.id("viewJob_${CommonConfig.projKey}-${CommonConfig.planKey}-JOB1")) }
         failedLabel {$(By.cssSelector("li#testsSummaryFailed strong.failedLabel"))}
 
-        compilationWarning {
-            if (VersionComparator.compare(CommonConfig.bambooVersion, "6.8.0") >= 0) {
+        compilationWarning 
+        {
+            if (VersionComparator.compare(CommonConfig.bambooVersion, "6.8.0") >= 0) 
+            {
                 return $(By.cssSelector("div.result-summary-tab div.aui-message.warning"))
-            } else {
+            } 
+            else 
+            {
                 return $(By.cssSelector("div.result-summary-tab div.aui-message.warning p strong"))
             }
         }
@@ -57,7 +61,8 @@ class PlanBuildPage extends Page
         defaultJobLink.click()
     }
 
-    def checkNumberOfFailedTests(CharSequence number) {
+    def checkNumberOfFailedTests(CharSequence number) 
+    {
         waitFor {failedLabel.isDisplayed()}
         failedLabel.text().contains(number)
     }
@@ -65,17 +70,18 @@ class PlanBuildPage extends Page
     def waitForCompilationWarning()
     {
         waitFor { compilationWarning.isDisplayed() }
-        compilationWarning.text() ==~ "No failed tests found"
+        assert compilationWarning.text() ==~ "No failed tests found"
     }
 
     def checkTextAddedToTests(String fileName, Integer expectedTestsCount) 
     {
-        return driver.findElements(By.xpath("//table[@id='new-failed-tests']//td/span[contains(text(), '{${fileName}}')]")).size() == expectedTestsCount
+        assert driver.findElements(By.xpath("//table[@id='new-failed-tests']//td/span[contains(text(), '{${fileName}}')]")).size() == expectedTestsCount
     }
 
-    def checkNoTestsWithTexts(String fileName, Integer expectedTestsCount) {
+    def checkNoTestsWithTexts(String fileName, Integer expectedTestsCount) 
+    {
         List<WebElement> list = driver.findElements(By.xpath("//table[@id='new-failed-tests']//td/span[contains(text(), '{${fileName}}')]"))
-        return list.size() == expectedTestsCount
+        assert list.size() == expectedTestsCount
     }
 
     def openLogsSubPage(){

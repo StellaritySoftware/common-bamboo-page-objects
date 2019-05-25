@@ -12,7 +12,8 @@ class LogsSubPage extends Page
         logsOutput{$(By.cssSelector("table#job-logs table td.buildOutputLog"))}
     }
 
-    def waitForOutputIsDisplayed(){
+    def waitForOutputIsDisplayed()
+    {
         waitFor{logsOutput.isDisplayed()}
     }
  }

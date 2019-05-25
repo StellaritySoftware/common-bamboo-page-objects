@@ -31,10 +31,12 @@ class CreateNewPlanConfigureTasksPage extends Page
         {
             js."document.querySelector('input#finalisePlanCreation_save').click()"  //6.0.0
         }
-        else if (!buttonCreateDefault.empty){
+        else if (!buttonCreateDefault.empty)
+        {
             js."document.querySelector('input#finalisePlanCreation_defaultSave').click()"
         }
-        else if (!buttonCreatePlan.empty){
+        else if (!buttonCreatePlan.empty)
+        {
             js."document.querySelector('#createPlan').click()"
         }
         
