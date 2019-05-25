@@ -65,7 +65,7 @@ class PlanBuildPage extends Page
     def waitForCompilationWarning()
     {
         waitFor { compilationWarning.isDisplayed() }
-        compilationWarning.text() == "No failed tests found, a possible compilation error occurred."
+        compilationWarning.text() ==~ "No failed tests found"
     }
 
     def checkTextAddedToTests(String fileName, Integer expectedTestsCount) 
