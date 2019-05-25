@@ -63,28 +63,32 @@ class PlanBuildPage extends Page
 
     def checkNumberOfFailedTests(CharSequence number) 
     {
-        waitFor {failedLabel.isDisplayed()}
+        waitFor { failedLabel.isDisplayed() }
         failedLabel.text().contains(number)
     }
 
     def waitForCompilationWarning()
     {
         waitFor { compilationWarning.isDisplayed() }
-        assert compilationWarning.text() ==~ "No failed tests found"
+        assert compilationWarning.text() ==~ /No failed tests found.*/
+        return true
     }
 
     def checkTextAddedToTests(String fileName, Integer expectedTestsCount) 
     {
         assert driver.findElements(By.xpath("//table[@id='new-failed-tests']//td/span[contains(text(), '{${fileName}}')]")).size() == expectedTestsCount
+        return true
     }
 
     def checkNoTestsWithTexts(String fileName, Integer expectedTestsCount) 
     {
         List<WebElement> list = driver.findElements(By.xpath("//table[@id='new-failed-tests']//td/span[contains(text(), '{${fileName}}')]"))
         assert list.size() == expectedTestsCount
+        return true
     }
 
-    def openLogsSubPage(){
+    def openLogsSubPage()
+    {
         logsTabLink.click()
         LogsSubPage page = browser.at LogsSubPage
         page.waitForOutputIsDisplayed()

@@ -37,6 +37,7 @@ class SharedCredentialsPage extends Page
     {
         waitFor { !saveCredentialButton.displayed }
         assert tableCells.toList().stream().anyMatch({ td -> td.text().equals(credentials) })
+        return true
     }
 
     def generateRandomCredentials()

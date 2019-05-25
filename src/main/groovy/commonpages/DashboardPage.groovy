@@ -17,8 +17,8 @@ class DashboardPage extends Page
 
     def UserManagementPage openUserManagementPage()
     {
-        waitFor {administrationButton.click()}
-        waitFor {userManagementOption.click()}
+        waitFor { administrationButton.click() }
+        waitFor { userManagementOption.click() }
         browser.at UserManagementPage
     }
 

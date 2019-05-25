@@ -10,12 +10,11 @@ class UserManagementPage extends Page
     static content =
     {
         sharedCredentialLink { $("a#sharedCredentialsConfig") }
-
     }
 
     def SharedCredentialsPage clickOnSharedCredentialLink()
     {
-        waitFor {sharedCredentialLink.isDisplayed()}
+        waitFor { sharedCredentialLink.isDisplayed() }
         sharedCredentialLink.click()
         browser.at SharedCredentialsPage
     }

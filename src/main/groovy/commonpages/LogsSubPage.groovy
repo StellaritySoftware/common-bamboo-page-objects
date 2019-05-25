@@ -14,6 +14,6 @@ class LogsSubPage extends Page
 
     def waitForOutputIsDisplayed()
     {
-        waitFor{logsOutput.isDisplayed()}
+        waitFor { logsOutput.isDisplayed() }
     }
  }
