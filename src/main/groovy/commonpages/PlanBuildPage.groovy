@@ -70,7 +70,7 @@ class PlanBuildPage extends Page
     def waitForCompilationWarning()
     {
         waitFor { compilationWarning.isDisplayed() }
-        assert compilationWarning.text() ==~ /No failed tests found.*/
+        assert compilationWarning.text() ==~ /No failed tests? found.*/
         return true
     }
 
