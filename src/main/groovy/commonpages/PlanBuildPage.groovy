@@ -64,7 +64,8 @@ class PlanBuildPage extends Page
     def checkNumberOfFailedTests(CharSequence number) 
     {
         waitFor { failedLabel.isDisplayed() }
-        failedLabel.text().contains(number)
+        assert failedLabel.text().contains(number)
+        return true
     }
 
     def waitForCompilationWarning()
